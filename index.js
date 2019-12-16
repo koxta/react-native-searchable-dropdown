@@ -68,6 +68,28 @@ export default class SearchableDropDown extends Component {
     }
   };
 
+  componentDidUpdate(prevProps){
+    const listItems = this.props.items;
+    const index = this.props.selectedIndex;
+
+    const currentItem = this.state.item;
+    const currentIndex = listItems.findIndex(x=>x.id == currentItem.id)
+    // console.log("item",currentItem);
+    // console.log("currentIndex",currentIndex);
+    // console.log("requested index",index);
+
+    if(currentIndex != index && index != undefined && index != -1){
+      console.log('%c update dropdown state ', 'background: #222; color: #bada55');
+      this.setState({
+        item:listItems[index]
+      })
+    }
+    else{
+      console.log(`%c state update rejected\n  currentIndex-${currentIndex} \n requestedIndex-${index}` , 'background: #222; color: #642727');
+    }
+  }
+
+
   searchedItems = searchedText => {
     let setSort = this.props.setSort;
     if (!setSort && typeof setSort !== 'function') {
